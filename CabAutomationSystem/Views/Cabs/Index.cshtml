@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CabAutomationSystem.Models.Cab>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JourneyTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JourneyPlace)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JourneyTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JourneyPlace)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CabId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CabId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CabId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
