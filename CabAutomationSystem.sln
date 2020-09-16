@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CabAutomationSystem", "CabAutomationSystem\CabAutomationSystem.csproj", "{4F936EBF-B271-4B97-A4A6-65B9DDA3EA51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CabAutomationSystem", "CabAutomationSystem\CabAutomationSystem.csproj", "{4F936EBF-B271-4B97-A4A6-65B9DDA3EA51}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DatabaseScripts", "DatabaseScripts\DatabaseScripts.sqlproj", "{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{4F936EBF-B271-4B97-A4A6-65B9DDA3EA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F936EBF-B271-4B97-A4A6-65B9DDA3EA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F936EBF-B271-4B97-A4A6-65B9DDA3EA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9441784B-F1B7-4E87-8DBC-D8859D2B1BEF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
