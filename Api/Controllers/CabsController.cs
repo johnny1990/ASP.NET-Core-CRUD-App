@@ -22,33 +22,33 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("Get")]
-        public IActionResult Get()
+        [Route("GetCabs")]
+        public IActionResult GetCabs()
         {
             var cabs = _cabRepository.GetCabs();
             return new OkObjectResult(cabs);
         }
 
-        [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        [HttpGet("{id}", Name = "GetCabsById")]
+        public IActionResult GetCabsById(int id)
         {
             var cab = _cabRepository.GetCabByID(id);
             return new OkObjectResult(cab);
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Cab cab)
+        public IActionResult PostCabs([FromBody] Cab cab)
         {
             using (var scope = new TransactionScope())
             {
                 _cabRepository.InsertCab(cab);
                 scope.Complete();
-                return CreatedAtAction(nameof(Get), new { id = cab.BookId }, cab);
+                return CreatedAtAction(nameof(GetCabs), new { id = cab.BookId }, cab);
             }
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Cab cab)
+        public IActionResult PutCabs([FromBody] Cab cab)
         {
             if (cab != null)
             {
@@ -63,7 +63,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteCabs(int id)
         {
             _cabRepository.DeleteCab(id);
             return new OkResult();

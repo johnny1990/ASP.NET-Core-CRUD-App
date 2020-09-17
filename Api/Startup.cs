@@ -32,6 +32,7 @@ namespace Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<CabDbContext>(item => item.UseSqlServer(Configuration.GetConnectionString("CabDbConnection")));
             services.AddScoped<ICabRepository, CabRepository>();
+            services.AddScoped<IDropPointsRepository, DropPointsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
