@@ -22,7 +22,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetRoutess")]
+        [Route("GetRoutes")]
         public IActionResult GetRoutes()
         {
             var routes = _routeRepository.GetRoutes();

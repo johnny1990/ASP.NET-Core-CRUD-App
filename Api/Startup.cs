@@ -34,6 +34,7 @@ namespace Api
             services.AddScoped<ICabRepository, CabRepository>();
             services.AddScoped<IDropPointsRepository, DropPointsRepository>();
             services.AddScoped<IRouteRepository, RouteRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
         }
 
