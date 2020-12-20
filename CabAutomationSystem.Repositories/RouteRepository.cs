@@ -1,4 +1,5 @@
-﻿using Api.Models.Contracts;
+﻿
+using CabAutomationSystem.Contracts;
 using CabAutomationSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api.Models.Repository
+namespace CabAutomationSystem.Repositories
 {
     public class RouteRepository : IRouteRepository
     {

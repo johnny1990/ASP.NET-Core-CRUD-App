@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Api.Models.Contracts;
-using Api.Models.Repository;
+using CabAutomationSystem.Contracts;
 using CabAutomationSystem.Models;
+using CabAutomationSystem.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
