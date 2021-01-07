@@ -23,6 +23,8 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetCabs")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetCabs()
         {
             var cabs = _cabRepository.GetCabs();
@@ -30,6 +32,8 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetCabsById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetCabsById(int id)
         {
             var cab = _cabRepository.GetCabByID(id);
@@ -37,6 +41,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult PostCabs([FromBody] Cab cab)
         {
             using (var scope = new TransactionScope())
@@ -48,6 +53,8 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult PutCabs([FromBody] Cab cab)
         {
             if (cab != null)
@@ -63,10 +70,12 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult DeleteCabs(int id)
         {
             _cabRepository.DeleteCab(id);
-            return new OkResult();
+            return new NoContentResult();
         }
     }
 }
