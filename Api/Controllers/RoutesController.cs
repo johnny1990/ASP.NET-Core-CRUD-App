@@ -37,6 +37,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Route("PostRoute")]
         public IActionResult PostRoutes([FromBody] Route route)
         {
             using (var scope = new TransactionScope())
@@ -48,6 +49,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [Route("PutRoute")]
         public IActionResult PutRoutes([FromBody] Route route)
         {
             if (route != null)

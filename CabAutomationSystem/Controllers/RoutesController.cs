@@ -6,22 +6,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CabAutomationSystem.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace CabAutomationSystem.Controllers
 {
     public class RoutesController : Controller
     {
+        Uri baseAddress = new Uri("https://localhost:44321/api"); 
+        HttpClient client;
+
         private readonly CabDbContext _context;
 
         public RoutesController(CabDbContext context)
         {
             _context = context;
+
+            client = new HttpClient();
+            client.BaseAddress = baseAddress;
         }
 
         // GET: Routes
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Route.ToListAsync());
+            List<Route> modelList = new List<Route>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Routes/GetRoutes").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string data = response.Content.ReadAsStringAsync().Result;
+                modelList = JsonConvert.DeserializeObject<List<Route>>(data);
+            }
+
+            return View(modelList.ToList());
         }
 
         // GET: Routes/Details/5
@@ -53,15 +70,18 @@ namespace CabAutomationSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RouteId,RouteName,RouteNumber")] Route route)
+        public IActionResult Create([Bind("RouteId,RouteName,RouteNumber")] Route route)
         {
-            if (ModelState.IsValid)
+            string data = JsonConvert.SerializeObject(route);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync(client.BaseAddress + "/Routes/PostRoute", content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                _context.Add(route);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(route);
+
+            return View();
         }
 
         // GET: Routes/Edit/5
