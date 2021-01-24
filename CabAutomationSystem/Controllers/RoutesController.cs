@@ -42,21 +42,17 @@ namespace CabAutomationSystem.Controllers
         }
 
         // GET: Routes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
-            if (id == null)
+            Route model = new Route();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Routes/GetRouteById?id=" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                string data = response.Content.ReadAsStringAsync().Result;
+                string datamodel = data.Replace("[", string.Empty).Replace("]", string.Empty);
+                model = JsonConvert.DeserializeObject<Route>(datamodel);
             }
-
-            var route = await _context.Route
-                .FirstOrDefaultAsync(m => m.RouteId == id);
-            if (route == null)
-            {
-                return NotFound();
-            }
-
-            return View(route);
+            return View(model);
         }
 
         // GET: Routes/Create
@@ -85,19 +81,17 @@ namespace CabAutomationSystem.Controllers
         }
 
         // GET: Routes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null)
+            Route model = new Route();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Routes/GetRouteById?id=" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                string data = response.Content.ReadAsStringAsync().Result;
+                string datamodel = data.Replace("[", string.Empty).Replace("]", string.Empty);
+                model = JsonConvert.DeserializeObject<Route>(datamodel);
             }
-
-            var route = await _context.Route.FindAsync(id);
-            if (route == null)
-            {
-                return NotFound();
-            }
-            return View(route);
+            return View(model);
         }
 
         // POST: Routes/Edit/5
@@ -105,63 +99,46 @@ namespace CabAutomationSystem.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RouteId,RouteName,RouteNumber")] Route route)
+        public IActionResult Edit(int id, [Bind("RouteId,RouteName,RouteNumber")] Route route)
         {
-            if (id != route.RouteId)
+            string data = JsonConvert.SerializeObject(route);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "/Routes/PutRoute", content).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                return RedirectToAction("Index");
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(route);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RouteExists(route.RouteId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
             return View(route);
         }
 
         // GET: Routes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
+            Route model = new Route();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "/Routes/GetRouteById?id=" + id).Result;
+            if (response.IsSuccessStatusCode)
             {
-                return NotFound();
+                string data = response.Content.ReadAsStringAsync().Result;
+                string datamodel = data.Replace("[", string.Empty).Replace("]", string.Empty);
+                model = JsonConvert.DeserializeObject<Route>(datamodel);
             }
 
-            var route = await _context.Route
-                .FirstOrDefaultAsync(m => m.RouteId == id);
-            if (route == null)
-            {
-                return NotFound();
-            }
-
-            return View(route);
+            return View(model);
         }
 
         // POST: Routes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var route = await _context.Route.FindAsync(id);
-            _context.Route.Remove(route);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            HttpResponseMessage response = client.DeleteAsync(client.BaseAddress + "/Routes/DeleteRoute?Id=" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
         }
 
         private bool RouteExists(int id)

@@ -29,7 +29,8 @@ namespace Api.Controllers
             return new OkObjectResult(routes);
         }
 
-        [HttpGet("{id}", Name = "GeRoutesById")]
+        [HttpGet]
+        [Route("GetRouteById")]
         public IActionResult GetRoutesById(int id)
         {
             var route = _routeRepository.GetRouteByID(id);
@@ -64,11 +65,16 @@ namespace Api.Controllers
             return new NoContentResult();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("DeleteRoute")]
         public IActionResult DeleteRoutes(int id)
         {
             _routeRepository.DeleteRoute(id);
             return new OkResult();
+            //var route = _routeRepository.GetRouteByID(id);
+            //_routeRepository.DeleteRoute(id);
+            //_routeRepository.Save();
+            //return new OkResult();
         }
     }
 }
