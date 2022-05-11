@@ -13,6 +13,9 @@ using CabAutomationSystem.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CabAutomationSystem.Models;
+using Microsoft.Extensions.Logging;
+using System.IO;
+
 
 namespace CabAutomationSystem
 {
@@ -48,7 +51,7 @@ namespace CabAutomationSystem
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -73,6 +76,9 @@ namespace CabAutomationSystem
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var path = Directory.GetCurrentDirectory();
+            loggerFactory.AddFile($"{path}\\Logs\\Log.txt");
         }
     }
 }

@@ -5,13 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CabAutomationSystem.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CabAutomationSystem.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
         public IActionResult Index()
         {
+            _logger.LogInformation("Index main page accessed by " +User.Identity.Name+" user!");
             return View();
         }
 

@@ -5,16 +5,20 @@ using System.Threading.Tasks;
 using CabAutomationSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace CabAutomationSystem.Controllers
 {
     public class CabsController : Controller
     {
         private readonly CabDbContext _context;
+        private readonly ILogger<HomeController> _logger;
+   
 
-        public CabsController(CabDbContext context)
+        public CabsController(CabDbContext context, ILogger<HomeController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -54,6 +58,7 @@ namespace CabAutomationSystem.Controllers
             {
                 _context.Add(cab);
                 await _context.SaveChangesAsync();
+                _logger.LogInformation("Cab created succesfully!");
                 return RedirectToAction(nameof(Index));
             }
             return View(cab);
